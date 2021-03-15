@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head id="mainPageId">
+        <meta charset="UTF-8">
+        <title>TODO APP</title>
+    </head>
+<style>
+    .button {
+        font: bold 11px Arial;
+        font-size: 16px;
+        text-decoration: none;
+        background-color: #EEEEEE;
+        color: #333333;
+        padding: 2px 6px 2px 6px;
+        border-top: 1px solid #CCCCCC;
+        border-right: 1px solid #333333;
+        border-bottom: 1px solid #333333;
+        border-left: 1px solid #CCCCCC;
+        }
+</style>
+<body bgcolor="#E6E6FA">
+    <div align="left">
+        <h1 style="color:darkblue;">User and Todo Operations</h1><br/>
+        <h4 style="color: #ff0033">(Please first add user, then add todo)</h4>
+        <h3><a href="/user/new" class="button">Add User</a></h3>
+        <br/>
+        <table id="userTableId" border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    <th id="userid" style="color:darkblue">User Id</th>
+                    <th id="usertitle" style="color:darkblue">User Title</th>
+                    <th id="name" style="color:darkblue">Name</th>
+                    <th id="surname" style="color:darkblue">Surname</th>
+                    <th id="email" style="color:darkblue">Email</th>
+                    <th id="operations" style="color:darkblue">Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${userList}">
+                    <td th:text="${user.id}"/>
+                    <td th:text="${user.title}"/>
+                    <td th:text="${user.firstName}"/>
+                    <td th:text="${user.lastName}"/>
+                    <td th:text="${user.email}"/>
+                    <td>
+                        <a th:href="@{'/user/update/' + ${user.id}}" class="button">Update</a>
+                        <a th:href="@{'/user/delete/' + ${user.id}}" class="button">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+        <h3><a href="/todo/add" class="button">Add Todo</a></h3>
+        <table border="1" cellpadding="10">
+            <thead>
+            <tr>
+                <th>Todo Id</th>
+                <th>Date of Todo Creation</th>
+                <th>Todo Name</th>
+                <th>Hour To Spend</th>
+                <th>Todo owner</th>
+                <th>Operations</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="todo : ${todoList}">
+                <td th:text="${todo.todoId}"/>
+                <td th:text="${todo.currrentDate}"/>
+                <td th:text="${todo.todoName}"/>
+                <td th:text="${todo.hourToSpend}"/>
+                <td th:text="${todo.user.firstName}"/>
+                <td>
+                    <a th:href="@{'/todo/update/' + ${todo.todoId}}" class="button">Update</a>
+                    <a th:href="@{'/todo/delete/' + ${todo.todoId}}" class="button">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p class="alert alert-danger" th:if="${errMsg != null}" th:text="${errMsg}"></p>
+    </div>
+</body>
+</html>

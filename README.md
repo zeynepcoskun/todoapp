@@ -1,5 +1,3 @@
-# todoapp
-
 
 Aim of the project:
 To Implement a simple todo application 

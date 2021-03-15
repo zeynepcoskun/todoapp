@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    
+<head>
+    <meta charset="UTF-8">
+    <title>Add Todo</title>
+</head>
+<body bgcolor="#E6E6FA">
+    <div align="left">
+        <h1>Add Todo</h1><br/>
+        <h4 style="color: #ff0033">(All fields are required!)</h4>
+        <h4 style="color: #ff0033">(Hour To Spend is a numeric field!)</h4>
+        <h4 style="color: #ff0033">(For User select from combobox!)</h4>
+        <form id="todoForm" action="#" 
+              th:action="@{/todo/save}" 
+              th:object="${todo}" 
+              method="post">
+            <table border="0" cellpadding="5">
+                <tr>
+                    <td>Todo Name:</td>
+                    <td><input type="text" th:field="*{todoName}" /></td>
+                    <td th:if="${#fields.hasErrors('todoName')}" 
+                        th:errors="*{todoName}">Todo Name Error</td>
+                </tr>
+                <tr>
+                    <td>Date of Creation:</td>
+                    <td><input disabled="true" th:field="*{currrentDate}" /></td>
+                    
+                </tr>
+                <tr>
+                    <td>Hour To Spend:</td>
+                    <td><input type="text" th:field="*{hourToSpend}" /></td>
+                    <td th:if="${#fields.hasErrors('hourToSpend')}" th:errors="*{hourToSpend}">Hour to Spend Error</td>
+                </tr>
+                <tr>
+                    <td>User:</td>
+                    <td>
+                        <select th:field="*{user.id}" id="userId">
+                            <option value="0">select user</option>
+                            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.firstName + ' ' + user.lastName}"></option>
+                        </select>
+                    </td>
+                    <td th:if="${#fields.hasErrors('user.id')}" th:errors="*{user.id}">User Error</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">Add</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
